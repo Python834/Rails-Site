@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+<div id="rightcol">
+  <p id="name">
+    <strong><%= @product.name %></strong>
+  </p>
+
+  <p>
+    <strong>Quantity:</strong>
+    <%= @product.quantity %>
+  </p>
+
+  <p>
+    <strong>Selling price:</strong>
+    $<%= @product.selling_price %>
+  </p>
+  <% if current_user.try(:admin?) %>
+      <p>
+        <strong>Cost of products:</strong>
+        $<%= @product.cost_of_products %>
+      </p>
+  <% end %>
+  <p>
+    <strong>Weight:</strong>
+    <%= @product.weight %> lb.
+  </p>
+
+  <p>
+    <%= @product.description.html_safe %>
+  </p>
+  <% if current_user.try(:admin?) %>
+      <%= link_to 'Edit', edit_product_path(@product) %> |
+  <% end %>
+  <%= link_to 'Back', products_path %>
+</div>
+
+<div id="leftcol">
+  <p id="full_image">
+    <%= image_tag(@product.full_image) %>
+  </p>
+</div>
+
+<div id="comment">
+  <% @product.comments.each do |comment| %>
+      <p>
+        <%= comment.author %>
+      </p>
+      <p>
+        <%= comment.opinion %>
+      </p>
+      <%= (image_tag( 'star.jpg', height: '15', width: '15') * comment.rating).html_safe %> <br />
+      <% if current_user.try(:admin?) %>
+          <%= link_to 'Remove', product_comment_path(@product, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+      <hr>
+  <% end %>
+  <%= form_for([@product, @product.comments.build]) do |f| %>
+      <%= f.hidden_field :product_id %>
+      <div class="field">
+        <%= f.label :author %><br>
+        <%= f.text_field :author %>
+      </div>
+      <div class="field">
+        <%= f.label :opinion %><br>
+        <%= f.text_area :opinion %>
+      </div>
+      <div class="field">
+        <%= f.label :rating %><br>
+        <%= f.select :rating, options_for_select(1..5) %>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+  <% end %>
+</div>

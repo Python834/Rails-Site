@@ -1,0 +1,37 @@
+<h1>Listing products</h1>
+<div class="table_div">
+<%= paginate @products %>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>Selling price</th>
+      <th>Cost of products</th>
+      <th>Weight</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= truncate(product.description, :escape => false) %></td>
+        <td class="qty"><%= product.quantity %></td>
+        <td><%= number_to_currency(product.selling_price) %></td>
+        <td><%= number_to_currency(product.cost_of_products) %></td>
+        <td><%= product.weight %> lb.</td>
+        <td><%= image_tag(product.thumbnail) %></td>
+        <td><%= link_to 'Show', product %></td>
+        <td><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td><%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'E-mail Product', products_email_path(product.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @products %>
+<%= link_to 'New Product', new_product_path %>
+</div>

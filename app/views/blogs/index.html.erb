@@ -1,0 +1,31 @@
+<h1>Listing blogs</h1>
+<%= paginate @blogs %>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Published date</th>
+      <th>Author</th>
+      <th>Content</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @blogs.each do |blog| %>
+      <tr>
+        <td><%= blog.title %></td>
+        <td><%= blog.published_date %></td>
+        <td><%= blog.author %></td>
+        <td><%= truncate(blog.content, :escape => false) %></td>
+        <td><%= link_to 'Show', blog %></td>
+        <td><%= link_to 'Edit', edit_blog_path(blog) %></td>
+        <td><%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @blogs %>
+<br>
+
+<%= link_to 'New Blog', new_blog_path %>

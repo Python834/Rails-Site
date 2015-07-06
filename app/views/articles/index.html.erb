@@ -1,0 +1,40 @@
+<h1>Listing articles</h1>
+<div class="table_div">
+<%= paginate @articles %>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Published date</th>
+      <th>Published</th>
+      <th>Content</th>
+      <th>Thumbnail</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td><%= article.title %></td>
+        <td><%= article.author %></td>
+        <td><%= article.published_date %></td>
+        <td><%= article.published %></td>
+        <td><%= truncate(article.content, :escape => false) %></td>
+        <td><%= image_tag(article.thumbnail) %></td>
+        <td><%= link_to 'Show', article %></td>
+        <% if current_user.try(:admin?)%>
+            <td><%= link_to 'Edit', edit_article_path(article) %></td>
+            <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'E-mail Article', articles_email_path(article.id) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @articles %>
+<% if current_user.try(:admin?)%>
+    <%= link_to 'New Article', new_article_path %>
+<% end %>
+</div>

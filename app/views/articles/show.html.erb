@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <%= image_tag(@article.thumbnail) %>
+</p>
+
+<h1><%= @article.title %></h1>
+
+<p class="center">
+  by: <%= @article.author %>
+</p>
+
+<p class="center">
+  <%= @article.published_date %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @article.published %>
+</p>
+
+<p>
+  <%= @article.content.html_safe %>
+</p>
+<% if current_user.try(:admin?) %>
+    <%= link_to 'Edit', edit_article_path(@article) %> |
+<% end %>
+<%= link_to 'Back', articles_path %>

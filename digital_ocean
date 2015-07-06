@@ -1,0 +1,32 @@
+107.170.237.235
+root
+Kingsnake12!
+
+Host: 107.170.237.235
+User: rails
+Pass: ziJ1SXkGGk
+
+DB: rails
+User: rails
+Pass: JVVfWFM1ed
+
+cd /home/rails
+
+Remove all of the rails files and their directories
+rm -rdv *
+
+Send all of the files to the deployment server.
+
+bundle install
+
+RAILS_ENV=production rake db:migrate
+
+RAILS_ENV=production rake db:seed
+
+RAILS_ENV=production rake assets:precompile
+
+chown -R rails:www-data /home/rails
+
+Restart your server
+
+service unicorn restart

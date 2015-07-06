@@ -1,0 +1,50 @@
+<%= form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, 'error') %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= tinymce %>
+    <%= f.label :description %><br>
+    <%= f.text_area :description, :class => 'tinymce', :rows => 10, :cols => 120 %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br>
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :selling_price %><br>
+    <%= f.text_field :selling_price %>
+  </div>
+  <div class="field">
+    <%= f.label :cost_of_products %><br>
+    <%= f.text_field :cost_of_products %>
+  </div>
+  <div class="field">
+    <%= f.label :weight %><br>
+    <%= f.text_field :weight %>
+  </div>
+  <div class="field">
+    <%= f.label :thumbnail %><br>
+    <%= f.text_field :thumbnail %>
+  </div>
+  <div class="field">
+    <%= f.label :full_image %><br>
+    <%= f.text_field :full_image %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

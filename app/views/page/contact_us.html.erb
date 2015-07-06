@@ -1,0 +1,47 @@
+﻿<h1>Contact Us</h1>
+
+<% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<div id="main">
+  <div id="side_display">
+    <strong>Name:</strong>  <%= @name %><br/><br/>
+    <strong>E-mail:</strong>  <%= @email %><br/><br/>
+    <strong>Phone Number:</strong>  <%= @phone_num %><br/><br/>
+    <strong>Questions:</strong>  <%= @questions %><br/><br/>
+    <strong>Contact:</strong>  <%= @contact %><br/><br/>
+    <strong>Gear:</strong>  <%= @gear %><br/><br/>
+    <strong>Prices:</strong>  <%= @prices %>
+
+  </div>
+  <%= form_tag('/contact_us') do %>
+
+      <%= label_tag('name', 'Name') %>
+      <%= text_field_tag('name', @name, placeholder: 'Name') %>
+      <br/>
+      <%= label_tag('email', 'E-mail') %>
+      <%= email_field_tag('email', @email) %>
+      <br/>
+      <%= label_tag('phone_num', 'Phone Number') %>
+      <%= phone_field_tag('phone_num', @phone_num, placeholder: '(XXX)XXX-XXXX') %>
+      <br/>
+      <%= label_tag('questions', 'Questions') %>
+      <%= text_area_tag('questions', @questions) %>
+      <br/>
+      <br/>
+      <%= label_tag('contact_email', 'E-mail') %>
+      <%= radio_button_tag('contact', 'email', @contact) %>
+      <%= label_tag('contact_phone', 'Phone') %>
+      <%= radio_button_tag('contact', 'phone', @contact) %>
+      <br/>
+      <%= select_tag 'item', options_from_collection_for_select(@item, :name, :name) %>
+      <br/>
+      <%= label_tag('gear', 'Gear') %>
+      <%= check_box_tag('gear', 'gear', @gear) %>
+      <%= label_tag('prices', 'Prices') %>
+      <%= check_box_tag('prices', 'prices', @prices) %>
+      <br/>
+      <%= submit_tag('Submit', id: 'submit') %>
+  <% end %>
+</div>
